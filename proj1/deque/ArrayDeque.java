@@ -5,6 +5,7 @@ public class ArrayDeque<T> {
     int nextFirst;
     int nextLast;
     int size;
+    int first;
 
 
     //constructor no-argument
@@ -34,6 +35,7 @@ public class ArrayDeque<T> {
             resize(size * 2);
         }
         items[nextFirst] = x;
+        first = nextFirst;
         nextFirst = Math.floorMod((nextFirst - 1), items.length);
         size++;
     }
@@ -78,20 +80,21 @@ public class ArrayDeque<T> {
         }
     }
     public T removeFirst() {
-        // int ItemLge = items.length;
-        // int first;
+        T value;
         if(isEmpty()) {
             return null;
         }
-        // if(nextFirst == ItemLge - 1 || (nextFirst == 0 && (items[nextFirst] != null))) {
-        //     first = 0;
-        // }else {
-        //     first = nextFirst + 1;
-        // }
-        T value = get(nextFirst);
-        items[nextFirst] = null;
-//        nextFirst = Math.floorMod((nextFirst - 1), items.length);
-        nextFirst = (nextFirst + 1) % items.length;
+        if(items[first] == null) {
+            return null;
+        }
+        value = items[first];
+        items[first] = null;
+        nextFirst = first;
+        if(nextFirst == items.length - 1) {
+            first = 0;
+        }else {
+            first = first + 1;
+        }
         size--;
         reSimallSize();
         return value;
