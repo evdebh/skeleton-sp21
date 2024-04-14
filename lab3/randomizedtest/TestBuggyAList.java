@@ -67,6 +67,7 @@ public class TestBuggyAList {
         }
         assertEquals(L.size(), B.size());
         assertEquals(L.getLast(),B.getLast());
+        System.out.println("error is above");
     }
 
 

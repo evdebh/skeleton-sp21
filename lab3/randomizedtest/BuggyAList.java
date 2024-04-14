@@ -18,11 +18,9 @@ public class BuggyAList<Item> {
     private Item[] items;
     private int size;
 
-    /**
-     * Creates an empty list.
-     */
+    /**Creates an empty list.*/
     public BuggyAList() {
-        items = (Item[]) new Object[1];
+        items = (Item[]) new Object[8];
         size = 0;
     }
 
@@ -74,16 +72,12 @@ public class BuggyAList<Item> {
      * returns deleted item.
      */
     public Item removeLast() {
-        if (size > 0) {
-            if ((size < items.length / 4) && (size > 4)) {
-                resize(size / 4);
-            }
-            Item x = getLast();
-            items[size - 1] = null;
-            size = size - 1;
-            return x;
-        } else {
-            return null;
+        if ((size < items.length / 4) && (items.length > 4)) {
+            resize(items.length / 2);
         }
+        Item x = getLast();
+        items[size - 1] = null;
+        size = size - 1;
+        return x;
     }
 }
