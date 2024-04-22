@@ -130,7 +130,7 @@ public class ArrayDequeTest {
     public void fillEmptyfill() {
         ArrayDeque<Integer> lld1 = new ArrayDeque<>();
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 10; i++) {
             lld1.addFirst(i);
         }
         //empty
@@ -150,14 +150,14 @@ public class ArrayDequeTest {
     public void multiplarray() {
         ArrayDeque<Integer> lld1 = new ArrayDeque<>();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 8; i++) {
             lld1.addLast(i);
         }
         //new one
         ArrayDeque<Integer> lld2 = new ArrayDeque<>();
 
         //empty
-        for (double i = 0; i < 10; i++) {
+        for (double i = 0; i < 8; i++) {
             assertEquals("Should have the same value", i, (double) lld1.removeFirst(), 0.0);
         }
 
@@ -169,6 +169,53 @@ public class ArrayDequeTest {
         for (double i = 0; i < 10; i++) {
             assertEquals("Should have the same value", i, (double) lld1.removeFirst(), 0.0);
         }
+    }
+
+    @Test
+    public void getSecondFirst() {
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        for (int i = 0; i < 10; i++) {
+            lld1.addLast(i);
+        }
+        for (int i = 0; i < lld1.size(); i++) {
+            int second;
+            int first = lld1.removeFirst();
+            if(i == 9) {
+                second = lld1.get(0);
+            } else {
+                second = lld1.get(i + 1);
+            }
+            int mix = first + second;
+            lld1.addLast(mix);
+            System.out.println(second);
+        }
+
+
+    }
+
+    @Test
+    public void removefirsttolastnoresize() {
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        for (int i = 0; i < 8; i++) {
+            lld1.addLast(i);
+        }
+        for(int i = 0; i < 3; i ++) {
+            int value = lld1.removeFirst();
+            lld1.addLast(value);
+        }
+
+    }
+    @Test
+    public void removefirsttolastresize() {
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        for (int i = 0; i < 10; i++) {
+            lld1.addLast(i);
+        }
+        for(int i = 0; i < 10; i ++) {
+            int value = lld1.removeFirst();
+            lld1.addLast(value);
+        }
+
     }
 
 

@@ -1,6 +1,6 @@
 package deque;
 
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T>{
     private class StuffNode {
         public StuffNode prev;
         public T item;
@@ -82,7 +82,7 @@ public class LinkedListDeque<T> {
 
     }
 
-    public T get(T item) {
+    public T get(int item) {
         StuffNode p = sentinel;
         while(p != null) {
             if (p.item.equals(item)) {

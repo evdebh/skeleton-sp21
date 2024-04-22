@@ -24,7 +24,7 @@ public class TestGuitarString  {
 
     @Test
     public void testSample() {
-        GuitarString s = new GuitarString(100);
+        GuitarString s = new GuitarString(10000);
         assertEquals(0.0, s.sample(), 0.0);
         assertEquals(0.0, s.sample(), 0.0);
         assertEquals(0.0, s.sample(), 0.0);

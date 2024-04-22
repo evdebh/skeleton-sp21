@@ -1,6 +1,6 @@
 package deque;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T>{
     T[] items;
     int nextFirst;
     int nextLast;
@@ -44,6 +44,13 @@ public class ArrayDeque<T> {
             return null;
         }
         return items[index];
+    }
+
+    public T getFirst() {
+        if (isEmpty()) {
+            return null;
+        }
+        return items[first];
     }
     public void resize(int capacity) {
         T[] newItems = (T[]) new Object[capacity];
