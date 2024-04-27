@@ -218,5 +218,18 @@ public class ArrayDequeTest {
 
     }
 
+    @Test
+    public void arraydequeiterator() {
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        lld1.addLast(1);
+        lld1.addLast(2);
+        lld1.addLast(3);
+
+        for (Integer i : lld1) {
+            int a = i;
+            System.out.println(a);
+        }
+    }
+
 
 }
