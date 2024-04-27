@@ -152,7 +152,8 @@ public class LinkedListDequeTest {
         lld1.addLast(10);
         lld1.addFirst(3);
         for (Integer i : lld1) {
-            System.out.println(i);
+            int a = i;
+            System.out.println(a);
         }
     }
 

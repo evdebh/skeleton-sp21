@@ -60,7 +60,7 @@ public class ArrayDeque<T> implements Deque<T> {
         T[] newItems = (T[]) new Object[capacity];
         int start;
         if (capacity < items.length) {
-            if(items[nextFirst] != null) {
+            if (items[nextFirst] != null) {
                 start = nextFirst;
             } else {
                 start = nextFirst + 1;
@@ -154,7 +154,7 @@ public class ArrayDeque<T> implements Deque<T> {
 
     private class ADIterator implements Iterator<T> {
         private int currentIndex;
-        public ADIterator() {
+        ADIterator() {
             currentIndex = 0;
         }
         @Override
