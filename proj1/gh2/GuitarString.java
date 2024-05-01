@@ -53,7 +53,7 @@ public class GuitarString {
     public void tic() {
         if (!buffer.isEmpty()) {
             double first = buffer.removeFirst();
-            double second = buffer.getFirst();
+            double second = buffer.get(0);
             double mixed = (first + second) * DECAY / 2;
             buffer.addLast(mixed);
         }
@@ -61,7 +61,7 @@ public class GuitarString {
 
     /* Return the double at the front of the buffer. */
     public double sample() {
-        double sample = buffer.getFirst();
+        double sample = buffer.get(0);
         return sample;
 
     }

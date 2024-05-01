@@ -9,6 +9,8 @@ public interface Deque<T> extends Iterable<T> {
      T removeFirst();
      T removeLast();
      T get(int index);
-     T getFirst();
      boolean equals(Object o);
+
+     T getRecursive(int index);
 }
+

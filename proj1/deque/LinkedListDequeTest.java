@@ -157,5 +157,53 @@ public class LinkedListDequeTest {
         }
     }
 
+    @Test
+    public void iterativeGet() {
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+        lld1.addLast(0);
+        lld1.addFirst(1);
+        lld1.addLast(2);
+        lld1.addFirst(3);
+        lld1.removeFirst();
+        lld1.addLast(5);
+        lld1.removeLast()  ;
+        lld1.addFirst(7);
+        lld1.get(3);
+
+    }
+
+    @Test
+    public void andininstanceDeque() {
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+        lld1.addLast(1);
+        lld1.addLast(2);
+        lld1.addLast(3);
+        ArrayDeque<Integer> lld2 = new ArrayDeque<>();
+        lld2.addLast(1);
+        lld2.addLast(2);
+        lld2.addLast(3);
+
+        assertTrue(lld1.equals(lld2));
+
+    }
+
+    @Test
+    public void iteration() {
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+        LinkedListDeque<Integer> lld2 = new LinkedListDeque<Integer>();
+        LinkedListDeque<Integer> lld3 = new LinkedListDeque<Integer>();
+        lld1.addLast(1);
+        lld1.addLast(2);
+        lld1.addLast(3);
+        lld2.addLast(1);
+        lld2.addLast(2);
+        lld2.addLast(3);
+
+        for (Integer i : lld1) {
+            lld3.addLast(i);
+        }
+        assertTrue(lld2.equals(lld3));
+    }
+
 
 }

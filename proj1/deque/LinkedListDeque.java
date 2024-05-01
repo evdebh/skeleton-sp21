@@ -1,4 +1,5 @@
 package deque;
+import java.util.ArrayDeque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -85,7 +86,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     public T get(int item) {
-        StuffNode p = sentinel;
+        StuffNode p = sentinel.next;
         while (p != null) {
             if (p.item.equals(item)) {
                 return p.item;
@@ -172,9 +173,9 @@ public class LinkedListDeque<T> implements Deque<T> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            T temp = curr.item;
+            T item = removeFirst();
             curr = curr.next;
-            return temp;
+            return item;
         }
     }
 
@@ -184,21 +185,24 @@ public class LinkedListDeque<T> implements Deque<T> {
             return true;
         }
 
-        if (!(o instanceof LinkedListDeque)) {
+//        if (o instanceof LinkedListDeque || o instanceof ArrayDeque) {
+        if (!(o instanceof Deque)) {
             return false;
         }
 
-        LinkedListDeque other = (LinkedListDeque) o;
-        if (other.size() != this.size()) {
+//        LinkedListDeque other = (LinkedListDeque) o;
+        if (((Deque<?>) o).size() != this.size()) {
             return false;
         }
 
         for (int i = 0; i < this.size(); i++) {
-            if (!this.getRecursive(i).equals(other.getRecursive(i))) {
+            if (!this.getRecursive(i).equals(((Deque<?>) o).getRecursive(i))) {
                 return false;
             }
         }
         return true;
     }
+
+
 
 }

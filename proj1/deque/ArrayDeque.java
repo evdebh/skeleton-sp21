@@ -1,14 +1,16 @@
 package deque;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class ArrayDeque<T> implements Deque<T> {
-    T[] items;
-    int nextFirst;
-    int nextLast;
-    int size;
-    int first;
+    private T[] items;
+    private int nextFirst;
+    private int nextLast;
+    private int size;
+    private int first;
+    private int last;
 
 
     //constructor no-argument
@@ -17,6 +19,8 @@ public class ArrayDeque<T> implements Deque<T> {
         nextFirst = 0;
         nextLast = 0;
         size = 0;
+        first = 0;
+        last = 0;
     }
     //constructor one-argument
 
@@ -30,6 +34,8 @@ public class ArrayDeque<T> implements Deque<T> {
         items[nextLast] = x;
         nextLast = Math.floorMod((nextLast + 1), items.length);
         size++;
+        last = nextLast + 1;
+
     }
 
     //put the element in the point(nextfirst), and if the first is 0,
@@ -47,15 +53,27 @@ public class ArrayDeque<T> implements Deque<T> {
         if (index < 0 || index >= items.length) {
             return null;
         }
-        return items[index];
+        int actualindex = (first + index) % items.length;
+        return items[actualindex];
     }
 
-    public T getFirst() {
-        if (isEmpty()) {
+    public T getRecursive(int index) {
+        if (index < 0 || index >= size) {
             return null;
         }
-        return items[first];
+        return getRecursionHelpr(this, index, 0);
     }
+
+    private T getRecursionHelpr(ArrayDeque<T> arrd, int index, int curr) {
+        if (curr == index) {
+            return arrd.get(curr);
+        }
+
+        return getRecursionHelpr(this, index, curr + 1);
+
+    }
+
+
     public void resize(int capacity) {
         T[] newItems = (T[]) new Object[capacity];
         int start;
@@ -112,16 +130,10 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     public T removeLast() {
-        int last;
         if (isEmpty()) {
             return null;
         }
 
-        if (nextLast != 0) {
-            last = nextLast - 1;
-        } else {
-            last = items.length - 1;
-        }
         T value = get(last);
         items[last] = null;
         nextLast = last;
@@ -148,6 +160,16 @@ public class ArrayDeque<T> implements Deque<T> {
         }
     }
 
+    public ArrayList toList() {
+        ArrayList result = new ArrayList<>();
+
+        for (int i = 0; i < size(); i++) {
+            result.add(this.get(i));
+        }
+
+        return result;
+    }
+
     public Iterator<T> iterator() {
         return new ADIterator();
     }
@@ -170,8 +192,7 @@ public class ArrayDeque<T> implements Deque<T> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            T item = get(currentIndex);
-            currentIndex++;
+            T item = removeFirst();
             return item;
 
         }
@@ -180,21 +201,21 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public boolean equals(Object obj) {
-        if (this != obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Deque<?>)) {
             return false;
         }
 
-        if (!(obj instanceof ArrayDeque)) {
-            return false;
-        }
 
-        ArrayDeque other = (ArrayDeque) obj;
-        if (this.size() != other.size()) {
+        if (this.size() != ((ArrayDeque<?>) obj).size()) {
             return false;
         }
 
         for (int i = 0; i < this.size(); i++) {
-            if (!this.get(i).equals(other.get(i))) {
+            if (!this.get(i).equals(((ArrayDeque<?>) obj).get(i))) {
                 return false;
             }
         }

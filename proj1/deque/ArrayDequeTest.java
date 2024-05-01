@@ -1,7 +1,11 @@
 package deque;
 
 
+import org.apache.hc.core5.annotation.Internal;
 import org.junit.Test;
+
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 public class ArrayDequeTest {
 
@@ -118,7 +122,7 @@ public class ArrayDequeTest {
 
         for (double i = 999999; i > 500000; i--) {
             int result = lld1.removeLast();
-            if(result != i) {
+            if (result != i) {
                 System.out.print("i is: " + i);
                 System.out.println("result is: " + result);
             }
@@ -130,7 +134,7 @@ public class ArrayDequeTest {
     public void fillEmptyfill() {
         ArrayDeque<Integer> lld1 = new ArrayDeque<>();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 8; i++) {
             lld1.addFirst(i);
         }
         //empty
@@ -139,7 +143,7 @@ public class ArrayDequeTest {
             int c = lld1.removeFirst();
             System.out.println(c);
         }
-       //again
+        //again
         for (int i = 0; i < 8; i++) {
             lld1.addFirst(i);
         }
@@ -180,7 +184,7 @@ public class ArrayDequeTest {
         for (int i = 0; i < lld1.size(); i++) {
             int second;
             int first = lld1.removeFirst();
-            if(i == 9) {
+            if (i == 9) {
                 second = lld1.get(0);
             } else {
                 second = lld1.get(i + 1);
@@ -199,19 +203,20 @@ public class ArrayDequeTest {
         for (int i = 0; i < 8; i++) {
             lld1.addLast(i);
         }
-        for(int i = 0; i < 3; i ++) {
+        for (int i = 0; i < 3; i++) {
             int value = lld1.removeFirst();
             lld1.addLast(value);
         }
 
     }
+
     @Test
     public void removefirsttolastresize() {
         ArrayDeque<Integer> lld1 = new ArrayDeque<>();
         for (int i = 0; i < 10; i++) {
             lld1.addLast(i);
         }
-        for(int i = 0; i < 10; i ++) {
+        for (int i = 0; i < 10; i++) {
             int value = lld1.removeFirst();
             lld1.addLast(value);
         }
@@ -221,15 +226,102 @@ public class ArrayDequeTest {
     @Test
     public void arraydequeiterator() {
         ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        ArrayDeque<Integer> lld2 = new ArrayDeque<>();
+        ArrayDeque<Integer> lld3 = new ArrayDeque<>();
         lld1.addLast(1);
         lld1.addLast(2);
         lld1.addLast(3);
+        lld3.addLast(1);
+        lld3.addLast(2);
+        lld3.addLast(3);
 
         for (Integer i : lld1) {
-            int a = i;
-            System.out.println(a);
+            lld2.addLast(i);
         }
+        assertTrue(lld3.equals(lld2));
+    }
+
+    @Test
+    public void toListtest() {
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        lld1.addFirst(1);
+        lld1.addFirst(2);
+        lld1.addFirst(3);
+
+        ArrayList first = new ArrayList<>();
+        first.add(lld1.removeFirst());
+        first.add(lld1.removeFirst());
+        first.add(lld1.removeFirst());
+
+        ArrayList other = new ArrayList<>();
+        other.addLast(3);
+        other.addLast(2);
+        other.addLast(1);
+
+        assertTrue(other.equals(first));
+    }
+
+    @Test
+    public void testGetRecursive() {
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        for (int i = 0; i < 8; i++) {
+            lld1.addLast(i);
+        }
+
+        int result = lld1.getRecursive(5);
+        assertEquals(result, 5);
+    }
+
+    @Test
+    public void andininstanceDeque() {
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+        lld1.addLast(1);
+        lld1.addLast(2);
+        lld1.addLast(3);
+        ArrayDeque<Integer> lld2 = new ArrayDeque<>();
+        lld2.addLast(1);
+        lld2.addLast(2);
+        lld2.addLast(3);
+
+        assertTrue(lld1.equals(lld2));
+
+    }
+
+    @Test
+    public void random() {
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        lld1.addFirst(0);
+        int result = lld1.removeLast();
+
+       assertEquals(result, 0);
+
+
+    }
+
+    @Test
+    public void fillremovefirstaddlast() {
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        for (int i = 0; i < 8; i++) {
+            lld1.addLast(i);
+        }
+        int first = lld1.removeFirst();
+        lld1.addLast(8);
+        int resutl = lld1.get(0);
+        assertEquals(8, resutl);
+    }
+
+    @Test
+    public void bigfillremovefirstaddlast() {
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        for (int i = 0; i < 10; i++) {
+            lld1.addLast(i);
+        }
+//        int first = lld1.removeFirst();
+        lld1.addLast(10);
+        int resutl = lld1.get(0);
+
     }
 
 
 }
+
