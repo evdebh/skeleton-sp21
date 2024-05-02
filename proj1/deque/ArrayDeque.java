@@ -47,14 +47,18 @@ public class ArrayDeque<T> implements Deque<T> {
         items[nextFirst] = x;
         first = nextFirst;
         nextFirst = Math.floorMod((nextFirst - 1), items.length);
+        nextLast = Math.floorMod((last + 1), items.length);
         size++;
     }
     public T get(int index) {
         if (index < 0 || index >= items.length) {
             return null;
         }
-        int actualindex = (first + index) % items.length;
-        return items[actualindex];
+        if (index == 0) {
+            return items[first];
+        } else {
+            return items[index];
+        }
     }
 
     public T getRecursive(int index) {
@@ -77,6 +81,7 @@ public class ArrayDeque<T> implements Deque<T> {
     public void resize(int capacity) {
         T[] newItems = (T[]) new Object[capacity];
         int start;
+        int oldSize = size;
         if (capacity < items.length) {
             if (items[nextFirst] != null) {
                 start = nextFirst;
@@ -87,9 +92,16 @@ public class ArrayDeque<T> implements Deque<T> {
             nextFirst = 0;
             nextLast = size;
         } else {
-            System.arraycopy(items, 0, newItems, 0, size);
+            for(int i = 0; i < oldSize; i++) {
+                newItems[i] = items[first];
+                first = (first + 1) % items.length;
+            }
+            items = newItems;
+            first = 0;
+            last = oldSize - 1;
+            nextFirst = Math.floorMod((first - 1), items.length);
+            nextLast = oldSize;
         }
-        items = newItems;
     }
 
     public void reSimallSize() {
@@ -134,9 +146,14 @@ public class ArrayDeque<T> implements Deque<T> {
             return null;
         }
 
-        T value = get(last);
+        T value = items[last];
         items[last] = null;
         nextLast = last;
+        if (nextLast == items.length - 1) {
+            last = 0;
+        } else {
+            last = last + 1;
+        }
         size--;
         reSimallSize();
         return value;

@@ -322,6 +322,26 @@ public class ArrayDequeTest {
 
     }
 
+    @Test
+    public void bigremovelast() {
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        for (int i = 0; i < 10; i++) {
+            lld1.addFirst(i);
+        }
+        int result = lld1.removeLast();
+        assertEquals(0, result);
+    }
+
+    @Test
+    public void bigremovefirst() {
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        for (int i = 0; i < 10; i++) {
+            lld1.addLast(i);
+        }
+        int result = lld1.removeFirst();
+        assertEquals(0, result);
+    }
+
 
 }
 
