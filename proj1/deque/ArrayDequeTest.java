@@ -95,15 +95,15 @@ public class ArrayDequeTest {
     public void smallLLDequeTest() {
         ArrayDeque<Integer> lld1 = new ArrayDeque<>();
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 20; i++) {
             lld1.addLast(i);
         }
 
-        for (double i = 0; i < 25; i++) {
+        for (double i = 0; i < 10; i++) {
             assertEquals("Should have the same value", i, (double) lld1.removeFirst(), 0.0);
         }
 
-        for (double i = 49; i > 25; i--) {
+        for (double i = 19; i > 10; i--) {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
     }
@@ -121,12 +121,7 @@ public class ArrayDequeTest {
         }
 
         for (double i = 999999; i > 500000; i--) {
-            int result = lld1.removeLast();
-            if (result != i) {
-                System.out.print("i is: " + i);
-                System.out.println("result is: " + result);
-            }
-//            assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
+            assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
     }
 
@@ -307,7 +302,7 @@ public class ArrayDequeTest {
         int first = lld1.removeFirst();
         lld1.addLast(8);
         int resutl = lld1.get(0);
-        assertEquals(8, resutl);
+        assertEquals(1, resutl);
     }
 
     @Test

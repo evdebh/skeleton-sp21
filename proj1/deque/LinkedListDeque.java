@@ -1,5 +1,4 @@
 package deque;
-import java.util.ArrayDeque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -101,19 +100,20 @@ public class LinkedListDeque<T> implements Deque<T> {
     public T getFirst() {
         return sentinel.next.item;
     }
+
     public T getRecursive(int index) {
         if (index < 0 || index >= size) {
             return null;
         }
-        return getRecursionHelpr(index, sentinel.next);
+        return getRecursionHelper(index, sentinel.next);
 
     }
 
-    private T getRecursionHelpr(int index, StuffNode node) {
+    private T getRecursionHelper(int index, StuffNode node) {
         if (index == 0) {
             return node.item;
         }
-        return getRecursionHelpr(index - 1, node.next);
+        return getRecursionHelper(index - 1, node.next);
     }
     public int size() {
         return size;
@@ -180,23 +180,21 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Deque o) {
         if (this == o) {
             return true;
         }
 
-//        if (o instanceof LinkedListDeque || o instanceof ArrayDeque) {
         if (!(o instanceof Deque)) {
             return false;
         }
 
-//        LinkedListDeque other = (LinkedListDeque) o;
         if (((Deque<?>) o).size() != this.size()) {
             return false;
         }
 
         for (int i = 0; i < this.size(); i++) {
-            if (!this.getRecursive(i).equals(((Deque<?>) o).getRecursive(i))) {
+            if (!this.getRecursive(i).equals(o.getRecursive(i))) {
                 return false;
             }
         }

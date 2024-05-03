@@ -32,9 +32,9 @@ public class ArrayDeque<T> implements Deque<T> {
             nextLast = size;
         }
         items[nextLast] = x;
+        last = nextLast;
         nextLast = Math.floorMod((nextLast + 1), items.length);
         size++;
-        last = nextLast + 1;
 
     }
 
@@ -65,15 +65,15 @@ public class ArrayDeque<T> implements Deque<T> {
         if (index < 0 || index >= size) {
             return null;
         }
-        return getRecursionHelpr(this, index, 0);
+        return getRecursionHelper(this, index, 0);
     }
 
-    private T getRecursionHelpr(ArrayDeque<T> arrd, int index, int curr) {
+    private T getRecursionHelper(ArrayDeque<T> arrd, int index, int curr) {
         if (curr == index) {
             return arrd.get(curr);
         }
 
-        return getRecursionHelpr(this, index, curr + 1);
+        return getRecursionHelper(this, index, curr + 1);
 
     }
 
@@ -149,11 +149,7 @@ public class ArrayDeque<T> implements Deque<T> {
         T value = items[last];
         items[last] = null;
         nextLast = last;
-        if (nextLast == items.length - 1) {
-            last = 0;
-        } else {
-            last = last + 1;
-        }
+        last = Math.floorMod((last - 1), items.length);
         size--;
         reSimallSize();
         return value;
@@ -217,7 +213,7 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Deque obj) {
         if (this == obj) {
             return true;
         }
