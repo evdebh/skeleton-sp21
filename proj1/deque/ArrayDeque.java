@@ -213,7 +213,7 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     @Override
-    public boolean equals(Deque obj) {
+    public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }

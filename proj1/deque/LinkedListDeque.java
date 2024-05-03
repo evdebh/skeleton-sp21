@@ -180,7 +180,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     @Override
-    public boolean equals(Deque o) {
+    public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
@@ -192,13 +192,20 @@ public class LinkedListDeque<T> implements Deque<T> {
         if (((Deque<?>) o).size() != this.size()) {
             return false;
         }
+        Deque<?> otherDeque = (Deque<?>) o;
+        Iterator<T> thisIterator = this.iterator();
+        Iterator<?> otherIterator = otherDeque.iterator();
 
-        for (int i = 0; i < this.size(); i++) {
-            if (!this.getRecursive(i).equals(o.getRecursive(i))) {
+        while (thisIterator.hasNext() && otherIterator.hasNext()) {
+            T thisItem = thisIterator.next();
+            Object otherItem = otherIterator.next();
+            if (!thisItem.equals(otherItem)) {
                 return false;
             }
         }
-        return true;
+
+        // Make sure both iterators are exhausted
+        return !thisIterator.hasNext() && !otherIterator.hasNext();
     }
 
 

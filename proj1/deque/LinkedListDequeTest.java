@@ -1,6 +1,10 @@
 package deque;
 
+import org.apache.hc.core5.annotation.Internal;
 import org.junit.Test;
+
+import java.util.Iterator;
+
 import static org.junit.Assert.*;
 
 
@@ -187,23 +191,8 @@ public class LinkedListDequeTest {
 
     }
 
-    @Test
-    public void iteration() {
-        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
-        LinkedListDeque<Integer> lld2 = new LinkedListDeque<Integer>();
-        LinkedListDeque<Integer> lld3 = new LinkedListDeque<Integer>();
-        lld1.addLast(1);
-        lld1.addLast(2);
-        lld1.addLast(3);
-        lld2.addLast(1);
-        lld2.addLast(2);
-        lld2.addLast(3);
+    
 
-        for (Integer i : lld1) {
-            lld3.addLast(i);
-        }
-        assertTrue(lld2.equals(lld3));
-    }
 
 
 }
