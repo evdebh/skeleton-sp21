@@ -2,13 +2,13 @@ package deque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedListDeque<T> implements Deque<T> {
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
     private class StuffNode {
         private StuffNode prev;
         private T item;
         private StuffNode next;
 
-        StuffNode(StuffNode prev, T item, StuffNode next) {
+        private StuffNode(StuffNode prev, T item, StuffNode next) {
             this.prev = prev;
             this.item = item;
             this.next = next;
@@ -26,14 +26,6 @@ public class LinkedListDeque<T> implements Deque<T> {
         sentinel.next = sentinel;
         size = 0;
     }
-    //create a one-argument linkedListDeque
-    public LinkedListDeque(T item) {
-        sentinel = new StuffNode(null, null, null);
-        StuffNode newNode = new StuffNode(sentinel, item, sentinel);
-        sentinel.next = newNode;
-        sentinel.prev = newNode;
-        size = size + 1;
-    }
 
     public void addFirst(T item) {
         StuffNode newNode = new StuffNode(sentinel, item, sentinel.next);
@@ -47,6 +39,8 @@ public class LinkedListDeque<T> implements Deque<T> {
         sentinel.prev = newNode;
         size++;
     }
+
+
     public T removeFirst() {
         if (sentinel.prev == sentinel) {
             return null;
@@ -89,7 +83,7 @@ public class LinkedListDeque<T> implements Deque<T> {
             return null;
         }
         int nodeind = 0;
-        for (StuffNode p = sentinel.next; p.item!= null; p = p .next) {
+        for (StuffNode p = sentinel.next; p.item != null; p = p .next) {
             if (nodeind != index) {
                 nodeind += 1;
             } else {
@@ -98,10 +92,10 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
         return null;
     }
-    public T getLast() {
+    private T getLast() {
         return sentinel.prev.item;
     }
-    public T getFirst() {
+    private T getFirst() {
         return sentinel.next.item;
     }
 
@@ -123,12 +117,6 @@ public class LinkedListDeque<T> implements Deque<T> {
         return size;
     }
 
-    public boolean isEmpty() {
-        if (size == 0) {
-            return true;
-        }
-        return false;
-    }
     public void printDeque() {
         System.out.println("this is printDeque");
     }

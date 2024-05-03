@@ -2,20 +2,16 @@ package deque;
 
 import java.util.Iterator;
 
-public interface Deque<T> extends Iterable{
+public interface Deque<T> {
      void addFirst(T item);
      void addLast(T item);
-     boolean isEmpty();
+     default boolean isEmpty() {
+          return size() == 0;
+     }
      int size();
      void printDeque();
      T removeFirst();
      T removeLast();
      T get(int index);
-
-     T getRecursive(int index);
-
-     boolean equals(Object o);
-
-     Iterator<T> iterator();
 }
 

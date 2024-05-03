@@ -19,9 +19,8 @@ public class GuitarString {
     /* Create a guitar string of the given frequency.  */
     public GuitarString(double frequency) {
         buffer = new ArrayDeque<>();
-        double capacity = SR / frequency;
-        int roundCapacity = (int) Math.round(capacity);
-        for (int i = 0; i < roundCapacity; i++) {
+        double capacity = Math.round(SR / frequency);
+        for (int i = 0; i < capacity; i++) {
             buffer.addLast(0.0);
         }
     }
@@ -35,13 +34,10 @@ public class GuitarString {
         //       other. This does not mean that you need to check that the numbers
         //       are different from each other. It means you should repeatedly call
         //       Math.random() - 0.5 to generate new random numbers for each array index.
-
         int bufferSize = buffer.size();
         for (int i = 0; i < bufferSize; i++) {
-            buffer.removeLast();
-        }
-        for (int i = 0; i < bufferSize; i++) {
             double r = Math.random() - 0.5;
+            buffer.removeFirst();
             buffer.addLast(r);
         }
 
@@ -53,16 +49,16 @@ public class GuitarString {
     public void tic() {
         if (!buffer.isEmpty()) {
             double first = buffer.removeFirst();
-            double second = buffer.get(0);
-            double mixed = (first + second) * DECAY / 2;
+            double second = buffer.get(1);
+            double mixed = (first + second) * DECAY / 2.0;
             buffer.addLast(mixed);
         }
     }
 
     /* Return the double at the front of the buffer. */
     public double sample() {
-        double sample = buffer.get(0);
-        return sample;
+        return buffer.get(0);
+
 
     }
 }

@@ -139,13 +139,13 @@ public class LinkedListDequeTest {
         lld1.addLast(9);
         lld1.addLast(10);
         lld1.addFirst(3);
-        lld1.toList();
+
     }
 
     @Test
     public void toListTestEmpty() {
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
-        lld1.toList();
+
     }
 
 

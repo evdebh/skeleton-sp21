@@ -4,13 +4,12 @@ package deque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     private T[] items;
     private int nextFirst;
     private int nextLast;
     private int size;
-    private int first;
-    private int last;
+
 
 
     //constructor no-argument
@@ -19,20 +18,17 @@ public class ArrayDeque<T> implements Deque<T> {
         nextFirst = 0;
         nextLast = 0;
         size = 0;
-        first = 0;
-        last = 0;
     }
     //constructor one-argument
 
 
     //if last is eged of last, then put element in the begin(if there is empty)
     public void addLast(T x) {
-        if (size == items.length) {
-            resize(size * 2);
+        if (size == items.length - 2) {
+            resize(items.length * 2);
             nextLast = size;
         }
         items[nextLast] = x;
-        last = nextLast;
         nextLast = Math.floorMod((nextLast + 1), items.length);
         size++;
 
@@ -42,12 +38,10 @@ public class ArrayDeque<T> implements Deque<T> {
     // put the elment into last(if there is empty)
     public void addFirst(T x) {
         if (size == items.length) {
-            resize(size * 2);
+            resize(items.length * 2);
         }
         items[nextFirst] = x;
-        first = nextFirst;
         nextFirst = Math.floorMod((nextFirst - 1), items.length);
-        nextLast = Math.floorMod((last + 1), items.length);
         size++;
     }
     private int arrayInd(int ind) {
@@ -62,6 +56,16 @@ public class ArrayDeque<T> implements Deque<T> {
             return null;
         }
         int ind = arrayInd(index);
+        return items[ind];
+    }
+
+    private T getFrist() {
+        int ind = arrayInd(0);
+        return items[ind];
+    }
+
+    private T getLast() {
+        int ind = arrayInd(size - 1);
         return items[ind];
     }
 
@@ -81,67 +85,30 @@ public class ArrayDeque<T> implements Deque<T> {
 
     }
 
-
-    public void resize(int capacity) {
+    private void resize(int capacity) {
         T[] newItems = (T[]) new Object[capacity];
-        int start;
-        int oldSize = size;
-        if (capacity < items.length) {
-            if (items[nextFirst] != null) {
-                start = nextFirst;
-            } else {
-                start = nextFirst + 1;
-            }
-            System.arraycopy(items, start, newItems, 0, size);
-            nextFirst = 0;
-            nextLast = size;
-        } else {
-            for(int i = 0; i < oldSize; i++) {
-                newItems[i] = items[first];
-                first = (first + 1) % items.length;
-            }
-            items = newItems;
-            first = 0;
-            last = oldSize - 1;
-            nextFirst = Math.floorMod((first - 1), items.length);
-            nextLast = oldSize;
+        int ind;
+        for (int i = 0; i < size; i++) {
+            ind = arrayInd(i);
+            newItems[capacity / 4 - 1] = items[ind];
         }
+        items = newItems;
+        nextFirst = Math.floorMod((nextFirst - 1), items.length);
+        nextLast = nextFirst + size + 1;
     }
 
-    public void reSimallSize() {
-        double util = ((double) size / items.length);
-        if (isEmpty()) {
-            resize(8);
-        } else if(items.length >= 16) {
-            double goal = 0.26;
-            if (util <= 0.25) {
-                resize((int) (size / goal));
-            }
-        } else {
-            double goal = 0.06;
-            if (util <= goal) {
-                resize((int) (size / goal));
-            }
-        }
-    }
     public T removeFirst() {
-        T value;
         if (isEmpty()) {
             return null;
         }
-        if (items[first] == null) {
-            return null;
+        if ((size < items.length / 4 ) && (size > 8)) {
+            resize(items.length / 2);
         }
-        value = items[first];
-        items[first] = null;
-        nextFirst = first;
-        if (nextFirst == items.length - 1) {
-            first = 0;
-        } else {
-            first = first + 1;
-        }
+        T value = getFrist();
+        int ind = arrayInd(0);
+        items[ind] = null;
         size--;
-        reSimallSize();
+        nextFirst = ind;
         return value;
     }
 
@@ -149,31 +116,22 @@ public class ArrayDeque<T> implements Deque<T> {
         if (isEmpty()) {
             return null;
         }
-
-        T value = items[last];
-        items[last] = null;
-        nextLast = last;
-        last = Math.floorMod((last - 1), items.length);
+        if ((size < items.length / 4 ) && (size > 8)) {
+            resize(items.length / 2);
+        }
+        T value = getLast();
+        int ind = arrayInd(size - 1);
+        items[ind] = null;
         size--;
-        reSimallSize();
+        nextLast = ind;
         return value;
     }
     public int size() {
         return size;
     }
-    public boolean isEmpty() {
-        if (size == 0) {
-            return true;
-        }
-        return false;
-    }
-
     public void printDeque() {
-        int index = 0;
-        while (index < items.length) {
-            System.out.print(items[index]);
-            System.out.print("->");
-            index++;
+        for (T i : this) {
+            System.out.println(i + " ");
         }
     }
 
@@ -183,7 +141,7 @@ public class ArrayDeque<T> implements Deque<T> {
 
     private class ADIterator implements Iterator<T> {
         private int currentIndex;
-        ADIterator() {
+        private ADIterator() {
             currentIndex = 0;
         }
         @Override
