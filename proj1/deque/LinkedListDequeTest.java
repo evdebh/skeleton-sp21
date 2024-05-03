@@ -148,18 +148,6 @@ public class LinkedListDequeTest {
         lld1.toList();
     }
 
-    @Test
-    public void iterationTest() {
-        LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
-        lld1.addLast(5);
-        lld1.addLast(9);
-        lld1.addLast(10);
-        lld1.addFirst(3);
-        for (Integer i : lld1) {
-            int a = i;
-            System.out.println(a);
-        }
-    }
 
     @Test
     public void iterativeGet() {
@@ -191,7 +179,7 @@ public class LinkedListDequeTest {
 
     }
 
-    
+
 
 
 

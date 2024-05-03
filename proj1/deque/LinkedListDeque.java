@@ -84,13 +84,17 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     }
 
-    public T get(int item) {
-        StuffNode p = sentinel.next;
-        while (p != null) {
-            if (p.item.equals(item)) {
+    public T get(int index) {
+        if (index < 0) {
+            return null;
+        }
+        int nodeind = 0;
+        for (StuffNode p = sentinel.next; p.item!= null; p = p .next) {
+            if (nodeind != index) {
+                nodeind += 1;
+            } else {
                 return p.item;
             }
-            p = p.next;
         }
         return null;
     }
@@ -188,24 +192,16 @@ public class LinkedListDeque<T> implements Deque<T> {
         if (!(o instanceof Deque)) {
             return false;
         }
-
-        if (((Deque<?>) o).size() != this.size()) {
+        Deque<T> other = (Deque<T>) o;
+        if (other.size() != this.size()) {
             return false;
         }
-        Deque<?> otherDeque = (Deque<?>) o;
-        Iterator<T> thisIterator = this.iterator();
-        Iterator<?> otherIterator = otherDeque.iterator();
-
-        while (thisIterator.hasNext() && otherIterator.hasNext()) {
-            T thisItem = thisIterator.next();
-            Object otherItem = otherIterator.next();
-            if (!thisItem.equals(otherItem)) {
+        for (int i = 0; i < size; i++) {
+            if (!(other.get(i).equals(this.get(i)))) {
                 return false;
             }
         }
-
-        // Make sure both iterators are exhausted
-        return !thisIterator.hasNext() && !otherIterator.hasNext();
+        return true;
     }
 
 

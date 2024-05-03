@@ -50,15 +50,19 @@ public class ArrayDeque<T> implements Deque<T> {
         nextLast = Math.floorMod((last + 1), items.length);
         size++;
     }
+    private int arrayInd(int ind) {
+        if (nextFirst + 1 + ind >= items.length) {
+            return nextFirst + 1 + ind - items.length;
+        } else {
+            return nextFirst + 1 + ind;
+        }
+    }
     public T get(int index) {
         if (index < 0 || index >= items.length) {
             return null;
         }
-        if (index == 0) {
-            return items[first];
-        } else {
-            return items[index];
-        }
+        int ind = arrayInd(index);
+        return items[ind];
     }
 
     public T getRecursive(int index) {
