@@ -133,25 +133,6 @@ public class LinkedListDeque<T> implements Deque<T> {
         System.out.println("this is printDeque");
     }
 
-    public void toList() {
-        if (isEmpty()) {
-            System.out.println("[]");
-        } else {
-            StuffNode temp = sentinel.next;
-            System.out.print("[");
-            while (temp != sentinel) {
-                System.out.print(temp.item);
-                if (temp.next == sentinel) {
-                    break;
-                }
-                System.out.print(", ");
-                temp = temp.next;
-            }
-            System.out.println("]");
-        }
-
-
-    }
 
     public Iterator<T> iterator() {
         return new LLDIterator();

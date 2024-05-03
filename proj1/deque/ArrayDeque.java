@@ -1,6 +1,6 @@
 package deque;
 
-import java.util.ArrayList;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -175,16 +175,6 @@ public class ArrayDeque<T> implements Deque<T> {
             System.out.print("->");
             index++;
         }
-    }
-
-    public ArrayList toList() {
-        ArrayList result = new ArrayList<>();
-
-        for (int i = 0; i < size(); i++) {
-            result.add(this.get(i));
-        }
-
-        return result;
     }
 
     public Iterator<T> iterator() {
