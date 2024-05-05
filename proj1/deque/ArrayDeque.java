@@ -27,7 +27,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
             newItems[capacity / 4 + i] = items[ind];
         }
         items = newItems;
-        nextFirst = Math.floorMod((nextFirst - 1), items.length);
+        nextFirst = capacity / 4 - 1;
         nextLast = nextFirst + size + 1;
     }
 
