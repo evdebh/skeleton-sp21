@@ -78,22 +78,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         return items[ind];
     }
 
-    private T getRecursive(int index) {
-        if (index < 0 || index >= size) {
-            return null;
-        }
-        return getRecursionHelper(this, index, 0);
-    }
-
-    private T getRecursionHelper(ArrayDeque<T> arrd, int index, int curr) {
-        if (curr == index) {
-            return arrd.get(curr);
-        }
-
-        return getRecursionHelper(this, index, curr + 1);
-
-    }
-
     public T removeFirst() {
         if (isEmpty()) {
             return null;
