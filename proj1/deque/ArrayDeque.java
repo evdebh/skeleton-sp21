@@ -4,7 +4,7 @@ package deque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] items;
     private int nextFirst;
     private int nextLast;
@@ -46,7 +46,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     //put the element in the point(nextfirst), and if the first is 0,
     // put the elment into last(if there is empty)
     public void addFirst(T x) {
-        if (size == items.length) {
+        if (size == items.length - 2) {
             resize(items.length * 2);
         }
         items[nextFirst] = x;
@@ -143,7 +143,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
         }
         @Override
         public boolean hasNext() {
-          return currentIndex < size;
+            return currentIndex < size;
         }
 
         @Override

@@ -5,6 +5,7 @@ import org.apache.hc.core5.annotation.Internal;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import static org.junit.Assert.*;
 public class ArrayDequeTest {
@@ -315,6 +316,87 @@ public class ArrayDequeTest {
         int result = lld1.removeFirst();
         assertEquals(0, result);
     }
+
+    @Test
+    public void testTwoIterators() {
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        deque.addLast(1);
+        deque.addLast(2);
+        Iterator<Integer> iterator1 = deque.iterator();
+        Iterator<Integer> iterator2 = deque.iterator();
+
+        assertEquals(true, iterator1.hasNext());
+        assertEquals(true, iterator2.hasNext());
+        int result1 = iterator1.next();
+        int result2 = iterator2.next();
+        assertEquals(1, result1);
+        assertEquals(1, result2);
+
+        assertEquals(true, iterator1.hasNext());
+        assertEquals(true, iterator2.hasNext());
+        int result3 = iterator1.next();
+        int result4 = iterator2.next();
+        assertEquals(2, result3);
+        assertEquals(2, result4);
+
+        assertEquals(false, iterator1.hasNext());
+        assertEquals(false, iterator2.hasNext());
+    }
+
+//    @Test
+//    public void testManyIterators() {
+//        ArrayDeque<Integer> deque = new ArrayDeque<>();
+//        deque.addLast(1);
+//        deque.addLast(2);
+//        Iterator<Integer> iterator1 = deque.iterator();
+//        Iterator<Integer> iterator2 = deque.iterator();
+//        Iterator<Integer> iterator3 = deque.iterator();
+//
+//        assertEquals(true, iterator1.hasNext());
+//        assertEquals(true, iterator2.hasNext());
+//        assertEquals(true, iterator3.hasNext());
+//        assertEquals(1, iterator1.next());
+//        assertEquals(1, iterator2.next());
+//        assertEquals(1, iterator3.next());
+//
+//        assertEquals(true, iterator1.hasNext());
+//        assertEquals(true, iterator2.hasNext());
+//        assertEquals(true, iterator3.hasNext());
+//        assertEquals(2, iterator1.next());
+//        assertEquals(2, iterator2.next());
+//        assertEquals(2, iterator3.next());
+//
+//        assertEquals(false, iterator1.hasNext());
+//        assertEquals(false, iterator2.hasNext());
+//        assertEquals(false, iterator3.hasNext());
+//    }
+
+    @Test
+    public void get() {
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        deque.addFirst(0);
+        deque.removeLast();
+        deque.addFirst(5);
+        deque.addFirst(6);
+        deque.addFirst(8);
+        deque.addFirst(9);
+        deque.addLast(10);
+        deque.addLast(11);
+        deque.removeFirst(); //-->9
+        deque.addFirst(13);
+        deque.addFirst(14);
+        deque.addFirst(16);
+        int result1 = deque.removeFirst(); //--> 16
+        deque.addLast(18);
+        deque.addLast(19);
+        int result2 = deque.removeLast(); // --> 19
+        int result3 = deque.removeFirst(); // --> 14
+
+        assertEquals(result1, 16);
+        assertEquals(result2, 19);
+        assertEquals(result3, 14);
+    }
+
 
 
 }
