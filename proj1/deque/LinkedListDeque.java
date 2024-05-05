@@ -2,7 +2,7 @@ package deque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private class StuffNode {
         private StuffNode prev;
         private T item;
@@ -83,7 +83,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
             return null;
         }
         int nodeind = 0;
-        for (StuffNode p = sentinel.next; p.item != null; p = p .next) {
+        for (StuffNode p = sentinel.next; p.item != null; p = p.next) {
             if (nodeind != index) {
                 nodeind += 1;
             } else {

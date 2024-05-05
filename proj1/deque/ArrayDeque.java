@@ -1,6 +1,4 @@
 package deque;
-
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -82,7 +80,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (isEmpty()) {
             return null;
         }
-        if ((size < items.length / 4 ) && (size > 8)) {
+        if ((size < items.length / 4) && (size > 8)) {
             resize(items.length / 2);
         }
         T value = getFrist();
@@ -97,7 +95,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (isEmpty()) {
             return null;
         }
-        if ((size < items.length / 4 ) && (size > 8)) {
+        if ((size < items.length / 4) && (size > 8)) {
             resize(items.length / 2);
         }
         T value = getLast();
@@ -152,16 +150,16 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return false;
         }
 
-        if (!(obj instanceof Deque<?>)) {
+        if (!(obj instanceof Deque)) {
             return false;
         }
 
-        if (this.size() != ((Deque<Object>) obj).size()) {
+        if (this.size() != ((Deque<T>) obj).size()) {
             return false;
         }
 
         for (int i = 0; i < this.size(); i++) {
-            if (!this.get(i).equals(((ArrayDeque<?>) obj).get(i))) {
+            if (!this.get(i).equals(((Deque<T>) obj).get(i))) {
                 return false;
             }
         }
