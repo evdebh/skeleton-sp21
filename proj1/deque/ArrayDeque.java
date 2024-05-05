@@ -78,7 +78,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         return items[ind];
     }
 
-    public T getRecursive(int index) {
+    private T getRecursive(int index) {
         if (index < 0 || index >= size) {
             return null;
         }
@@ -164,13 +164,15 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (this == obj) {
             return true;
         }
+        if (obj == null) {
+            return false;
+        }
 
         if (!(obj instanceof Deque<?>)) {
             return false;
         }
 
-
-        if (this.size() != ((ArrayDeque<?>) obj).size()) {
+        if (this.size() != ((Deque<Object>) obj).size()) {
             return false;
         }
 

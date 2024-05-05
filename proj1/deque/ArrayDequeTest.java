@@ -237,17 +237,6 @@ public class ArrayDequeTest {
     }
 
     @Test
-    public void testGetRecursive() {
-        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
-        for (int i = 0; i < 8; i++) {
-            lld1.addLast(i);
-        }
-
-        int result = lld1.getRecursive(5);
-        assertEquals(result, 5);
-    }
-
-    @Test
     public void andininstanceDeque() {
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
         lld1.addLast(1);
