@@ -170,27 +170,6 @@ public class ArrayDequeTest {
         }
     }
 
-    @Test
-    public void getSecondFirst() {
-        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
-        for (int i = 0; i < 10; i++) {
-            lld1.addLast(i);
-        }
-        for (int i = 0; i < lld1.size(); i++) {
-            int second;
-            int first = lld1.removeFirst();
-            if (i == 9) {
-                second = lld1.get(0);
-            } else {
-                second = lld1.get(i + 1);
-            }
-            int mix = first + second;
-            lld1.addLast(mix);
-            System.out.println(second);
-        }
-
-
-    }
 
     @Test
     public void removefirsttolastnoresize() {
