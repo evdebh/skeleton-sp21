@@ -94,8 +94,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
 
     }
 
-
-
     public T removeFirst() {
         if (isEmpty()) {
             return null;
@@ -145,10 +143,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
         }
         @Override
         public boolean hasNext() {
-            if (isEmpty()) {
-                return false;
-            }
-            return true;
+          return currentIndex < size;
         }
 
         @Override
@@ -156,7 +151,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            T item = removeFirst();
+            T item = get(currentIndex);
+            currentIndex++;
             return item;
 
         }
